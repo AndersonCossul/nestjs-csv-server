@@ -5,11 +5,15 @@ import { Cat } from '../interfaces/cat.interface';
 export class CatsService {
   private readonly cats: Cat[] = [];
 
-  create(cat: Cat) {
+  async create(cat: Cat) {
     this.cats.push(cat);
   }
 
-  findAll(): Cat[] {
+  async findAll(): Promise<Cat[]> {
     return this.cats;
+  }
+
+  async findOne(id: number): Promise<Cat> {
+    return this.cats[id];
   }
 }
