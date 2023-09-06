@@ -2,6 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Weather } from '../entities/weather.entity';
+import {
+  paginate,
+  Pagination,
+  IPaginationOptions,
+} from 'nestjs-typeorm-paginate';
 
 @Injectable()
 export class WeatherService {
@@ -10,7 +15,7 @@ export class WeatherService {
     private weatherRepository: Repository<Weather>,
   ) {}
 
-  findAll() {
-    return this.weatherRepository.find();
+  async paginate(options: IPaginationOptions): Promise<Pagination<Weather>> {
+    return paginate<Weather>(this.weatherRepository, options);
   }
 }
